@@ -1,4 +1,4 @@
-// on importe les variables d'environement 
+// on importe les variables d'environnement 
 require('dotenv').config();
 
 // on importe les objets client, intents et collection
@@ -17,10 +17,10 @@ const client = new Client({
     intents: [allIntents]
 });
 
-// on instancie l'objet Collection puis crée une nouvelle propriété commands dans notre objet client 
+// on instancie l'objet Collection puis on crée une nouvelle propriété commands dans notre objet client 
 client.commands = new Collection();
 
-// on utilise la méthode fs.readdirSync() qui va retourner un array de tout les fichiers dans le dossier commands puis on va filtrer les fichiers js
+// on utilise la méthode fs.readdirSync() qui va retourner un array de tous les fichiers dans le dossier commands puis on va filtrer les fichiers js
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 // on fait une boucle pour mettre les fichiers js dans la collection client.commands
@@ -30,21 +30,21 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-// on utilise la méthode once qui écoute une seul fois l'événement ready
+// on utilise la méthode "once" qui écoute une seule fois l'événement ready
 client.once('ready', () => {
     console.log('La force est réveillée !');
 });
 
-// on utilise la méthode on qui écoute l'événement guildMemberAdd
+// on utilise la méthode "on" qui écoute l'événement guildMemberAdd
 client.on('guildMemberAdd', guildMember => {
         // on recherche le role jawa
         const welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Jawa');
 
-        // on attribut ce rôle à l'utilisateur qui vient de rejoindre le serveur
+        // on attribue ce rôle à l'utilisateur qui vient de rejoindre le serveur
         guildMember.roles.add(welcomeRole);
 });
 
-// on utilise la méthode on qui écoute l'événement interactionCreate
+// on utilise la méthode "on" qui écoute l'événement interactionCreate
 client.on('interactionCreate', async interaction => {
     // on vérifie si c'est une commande
     if (!interaction.isCommand()) return;
